@@ -9,7 +9,7 @@ const images = {
 
 export const CopyCat = ({name, value, handleChange, isCopying, toggleTape}) => {
     // copyCat is a controlled component. it takes a prop. it displays a heading, input and an image. 
-    // isCopying - a state to record whether cat is Copying cat or not.
+    // isCopying - a state to record whether cat is Copying cat or not. if true, copied text of input will be displayed below image.
     // toggleTape - a function to flip the isCopying state (after 0.5 seconds)
     // handleChange - updates input in CopyCatContainer.js
   return (
