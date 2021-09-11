@@ -6,6 +6,7 @@ import React from 'react';
 import { screen, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom'; // get DOM specific matcher methods from jest-dom module
 import  userEvent from '@testing-library/user-event'; // get userEvent object to mimick user interactions
+import { forOfStatement } from '@babel/types';
 
 test('Should display copied text', () => {
 // Write your solution to task 9 within this test
@@ -28,9 +29,15 @@ test('Should display copied text', () => {
 
 test('Should remove copied text after removing tape', () => {
 // Write your solution to task 11 within this test
-
-
-
+// tests whether the user input disappears when the user clicks on the cat image and sets it to the 'quietcat' state. In two parts.
+// Part 1, check whether text is in paragraph after typing into input.
+    render(<CopyCatContainer/>);
+    // grab and type into input
+    const input = screen.getByRole('textbox');
+    userEvent.type(input,'My mouth is shut');
+    // grab and assert the paragraph is in DOM
+    const paragraph = screen.getByText('My mouth is shut');
+    expect(paragraph).toBeInTheDocument();
 })
 
 test('Should display copied text after removing tape', () => {
