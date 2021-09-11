@@ -27,7 +27,7 @@ test('Should display copied text', () => {
 
 })
 
-test('Should remove copied text after removing tape', () => {
+test('Should remove copied text after removing tape', async() => {
 // Write your solution to task 11 within this test
 // tests whether the user input disappears when the user clicks on the cat image and sets it to the 'quietcat' state. In two parts.
 // Part 1, check whether text is in paragraph after typing into input.
@@ -38,6 +38,19 @@ test('Should remove copied text after removing tape', () => {
     // grab and assert the paragraph is in DOM
     const paragraph = screen.getByText('My mouth is shut');
     expect(paragraph).toBeInTheDocument();
+
+// part 2. check whether paragraph disappears after typing into input. 
+    // extract cat image
+    const image = screen.getByAltText('copycat') // alt text based on isCopying state whose default is true;
+    // simulate clicking on cat image.
+    userEvent.click(image);
+    await waitFor(()=>{
+        // wait for the async expect() to pass test
+        // previously established this paragraph was in DOM, so when it vanishes. we know it was because of the image click.
+        const paragraph = screen.queryByText('My mouth is shut');
+        expect(paragraph).toBeNull(); 
+    })
+
 })
 
 test('Should display copied text after removing tape', () => {
