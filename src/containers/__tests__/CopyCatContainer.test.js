@@ -28,7 +28,7 @@ test('Should display copied text', () => {
 })
 
 test('Should remove copied text after removing tape', async() => {
-// Write your solution to task 11 within this test
+// Write your solution to task 11-12 within this test
 // tests whether the user input disappears when the user clicks on the cat image and sets it to the 'quietcat' state. In two parts.
 // Part 1, check whether text is in paragraph after typing into input.
     render(<CopyCatContainer/>);
@@ -53,8 +53,25 @@ test('Should remove copied text after removing tape', async() => {
 
 })
 
-test('Should display copied text after removing tape', () => {
-// Write your solution to tasks 12-13 within this test
+test('Should display copied text after removing tape', async () => {
+// Write your solution to tasks 13-14 within this test
+// test whether the user input reappears when the tape is removed from the cat’s mouth. 
+// part 1. click on copycat image and test to see if the quietcat image is rendered. 
+    render(<CopyCatContainer />);
+    // extract cat image
+    const image = screen.getByAltText('copycat');
+    // simulate user click to set image to quietcat from copycat.
+    userEvent.click(image);
+    // extract asynchronously the picture of quiet cat, toggleTap sets isCopying after 500 ms.
+    const quietImage = await screen.findByAltText('quietcat')
+    // assert quiet cat is rendered
+    expect(quietImage).toBeInTheDocument();
+
+// part 2. type into input and test the paragraph under the image isn't visible. 
+    // extract paragraph
+    const paragraph = screen.queryByText('Eventually this will appear');
+    // assert paragraph isn't in the DOM.
+    expect(paragraph).toBeNull();
 
 
 })
