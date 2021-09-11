@@ -26,8 +26,14 @@ test('Should display name', () => {
 
 test('Should display input text in paragraph when isCopying is set to true', () => {
 // Write your solution to tasks 5-6 within this test
-
-
+    render(
+        <CopyCat 
+            value="Here is an input",
+            handleChange={()=>{}} 
+            toggleTape={()=>{}} 
+            isCopying={true}
+        />
+    );
 })
 
 test('Should not display input text in paragraph when isCopying is set to false', () => {
