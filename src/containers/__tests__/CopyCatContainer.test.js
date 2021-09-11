@@ -59,20 +59,32 @@ test('Should display copied text after removing tape', async () => {
 // part 1. click on copycat image and test to see if the quietcat image is rendered. 
     render(<CopyCatContainer />);
     // extract cat image
-    const image = screen.getByAltText('copycat');
+   let copyCatImage = screen.getByAltText('copycat');
     // simulate user click to set image to quietcat from copycat.
-    userEvent.click(image);
+    userEvent.click(copyCatImage);
     // extract asynchronously the picture of quiet cat, toggleTap sets isCopying after 500 ms.
-    const quietImage = await screen.findByAltText('quietcat')
-    // assert quiet cat is rendered
-    expect(quietImage).toBeInTheDocument();
+    let quietCatImage = await screen.findByAltText('quietcat') //no need to expect(quietCatImage).toBeInTheDocument. if it fails to find, will throw error.
 
 // part 2. type into input and test the paragraph under the image isn't visible. 
-    // extract paragraph
-    const paragraph = screen.queryByText('Eventually this will appear');
+    // extract input
+    const input = screen.getByRole('textbox');
+    // type into input 
+    userEvent.type(input,'Eventually this will appear');
+    // extract paragraph, not with waitFor, even though image change which affects paragraph is async, because we've already waited!   
+    let paragraph = screen.queryByText('Eventually this will appear');
     // assert paragraph isn't in the DOM.
     expect(paragraph).toBeNull();
 
+// part 3. click on quietcat image, and test for image turning back to copycat and presence of paragraph. 
 
-})
+    // simulate click to change image to copycat
+    userEvent.click(quietCatImage);
+    // assert image is reverted to copy cat - asynchronously (because it takes time for toggleTape to change quietCat to copycat)
+    copyCatImage = await screen.findByAltText('copycat');
+    // NOTE! findByX will not need to be followed by expect().toBeInTheDocument as failure to find cause error to be thrown.
+    // get paragraph again
+    paragraph = screen.getByText('Eventually this will appear');
+    // assert paragraph is in the document.
+    expect(paragraph).toBeInTheDocument(); 
+});
 
