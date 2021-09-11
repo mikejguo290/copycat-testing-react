@@ -1,7 +1,9 @@
 import { CopyCat } from '../CopyCat'
 
 //  Make all the imports below
-
+import React from 'react'; //need React from the react package in order to use JSX syntax in our tests
+import { render , screen } from '@testing-library/react';
+import "@testing-library/jest-dom"; // import the entire jest-dom module to get the matcher methods.
 
 
 
