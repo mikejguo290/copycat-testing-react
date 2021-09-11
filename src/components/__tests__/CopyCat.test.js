@@ -46,7 +46,24 @@ test('Should display input text in paragraph when isCopying is set to true', () 
 
 test('Should not display input text in paragraph when isCopying is set to false', () => {
 // Write your solution to task 7 within this test
-
+    
+    // test for the absence of paragraph despite the text in input, when isCopying=false;
+    render(
+        <CopyCat
+            value="Here is an input"
+            handleChange={()=>{}}
+            toggleTape={()=>{}}
+            isCopying={false}
+        />
+    )
+    // extract input
+    const input = screen.getByRole('textbox');
+    // test input's value is as expected
+    expect(input).toHaveDisplayValue("Here is an input");
+    // extract paragraph
+    const paragraph = screen.queryByText("Here is an input");
+    // test for it's absence
+    expect(paragraph).toBeNull();
 
 })
 
