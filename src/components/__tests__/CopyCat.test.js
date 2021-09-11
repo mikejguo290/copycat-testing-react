@@ -11,6 +11,17 @@ import "@testing-library/jest-dom"; // import the entire jest-dom module to get 
 test('Should display name', () => {
 // Write your solution to tasks 3-4 within this test
 
+    // in order to render a component, one must pass props to it.
+    render(
+        <CopyCat 
+            name='Mack' 
+            value='' 
+            handleChange={()=>{}} 
+            toggleTape={()=>{}} 
+            isCopying={true}
+        />
+    );
+    screen.getByText('Copy Cat Mack');
 })
 
 test('Should display input text in paragraph when isCopying is set to true', () => {
