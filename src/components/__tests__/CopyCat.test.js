@@ -28,13 +28,21 @@ test('Should display input text in paragraph when isCopying is set to true', () 
 // Write your solution to tasks 5-6 within this test
     render(
         <CopyCat 
-            value="Here is an input",
+            value="Here is an input"
             handleChange={()=>{}} 
             toggleTape={()=>{}} 
             isCopying={true}
         />
     );
-})
+    // extract the input node, arrange phase
+    const input = screen.getByRole('textbox'); // getByRole query method, //https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles
+    // test expectations in assert phase,
+    expect(input).toHaveDisplayValue("Here is an input");
+    // extract the paragraph by text.
+    const paragraph = screen.getByText('Here is an input');
+    // test whether paragraph renders when isCopying=true;
+    expect(paragraph).toBeInTheDocument();
+});
 
 test('Should not display input text in paragraph when isCopying is set to false', () => {
 // Write your solution to task 7 within this test
